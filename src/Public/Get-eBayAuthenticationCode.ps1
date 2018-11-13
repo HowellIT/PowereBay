@@ -42,5 +42,7 @@ Function Get-eBayAuthenticationCode {
     }
     If($Response['isAuthSuccessful']){
         $Response['code']
+    }Else{
+        Throw 'Error'
     }
 }
