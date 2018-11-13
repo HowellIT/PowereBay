@@ -6,7 +6,6 @@ Function Get-eBayAuthenticationCode {
     )
     <#
         Doc on flow: https://developer.ebay.com/api-docs/static/oauth-authorization-code-grant.html
-        Doc on auth format: https://developer.ebay.com/api-docs/static/oauth-base64-credentials.html
     #>
     #$encodedAuthorization = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("$ClientID`:$ClientSecret"))
     $encodedClientID = [System.Web.HttpUtility]::UrlEncode($ClientID)
