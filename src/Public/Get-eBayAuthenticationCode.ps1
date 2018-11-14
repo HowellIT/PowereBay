@@ -12,7 +12,7 @@ Function Get-eBayAuthenticationCode {
     $encodedClientID = [System.Web.HttpUtility]::UrlEncode($ClientID)
     $encodedRUName = [System.Web.HttpUtility]::UrlEncode($RUName)
     $baseUri = 'https://auth.ebay.com/oauth2/authorize'
-    $scope = 'https://api.ebay.com/oauth/api_scope/sell.inventory'
+    $scope = 'https://api.ebay.com/oauth/api_scope/sell.inventory%20https://api.ebay.com/oauth/api_scope/sell.fulfillment'
     $logonUri = "$baseUri`?client_id=$encodedClientID&redirect_uri=$encodedRUName&response_type=code&scope=$scope&prompt=login"
     Write-Verbose "Logon URL: $logonUri"
     $Form = New-Object -TypeName 'System.Windows.Forms.Form' -Property @{
