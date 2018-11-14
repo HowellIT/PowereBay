@@ -9,7 +9,13 @@ I plan to add classes to manage the retrieved data better, but in the current st
 As of this writing, only an experimental build has been done, but it has not and will not be published in it's current state.
 
 ## How to set up
-You must first register for an eBay developer account here: https://developer.ebay.com/signin
+Download or clone this repo and:
+
+```PowerShell
+Import-Module $ModulePath\src\Powerebay.psm1
+```
+
+Before you cane use this module, you must first register for an eBay developer account here: https://developer.ebay.com/signin
 
 Once registered, retrieve your API keys here: https://developer.ebay.com/my/keys
 
