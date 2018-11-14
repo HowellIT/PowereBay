@@ -48,6 +48,7 @@ Function Get-eBayOrder {
             $filter = "filter=$creationDateFilter"
         }
         Write-Verbose "$baseUri`?$filter"
-        Invoke-RestMethod -Uri "$baseUri`?$filter" -Headers $headers
+        $response = Invoke-RestMethod -Uri "$baseUri`?$filter" -Headers $headers
+        $response.Orders
     }
 }
