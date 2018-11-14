@@ -1,4 +1,7 @@
 # PowereBay
+
+THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, data formatting, etc have not been implemented as of this writing!
+
 This module is designed to work with the eBay API. It is under development (PRs welcome!) and currently supports retrieving order and shipping information.
 
 I plan to add classes to manage the retrieved data better, but in the current state it can authenticate and query basic order and shipping info.
