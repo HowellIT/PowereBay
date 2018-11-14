@@ -4,18 +4,16 @@ THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, da
 
 This module is designed to work with the eBay API. It is under development (PRs welcome!) and currently supports retrieving order and shipping information.
 
-I plan to add classes to manage the retrieved data better, but in the current state it can authenticate and query basic order and shipping info.
-
-As of this writing, only an experimental build has been done, but it has not and will not be published in it's current state.
+In this module's current state it can authenticate and query basic order and shipping info and as of this writing, only an experimental build has been done with some minor testing.
 
 ## How to set up
 Download or clone this repo and:
 
 ```PowerShell
-Import-Module $ModulePath\src\Powerebay.psm1
+Import-Module $ModulePath\src\PowereBay.psm1
 ```
 
-Before you cane use this module, you must first register for an eBay developer account here: https://developer.ebay.com/signin
+Before you can use this module, you must first register for an eBay developer account here: https://developer.ebay.com/signin
 
 Once registered, retrieve your API keys here: https://developer.ebay.com/my/keys
 
@@ -41,7 +39,7 @@ To get a single order from eBay:
 Get-eBayOrder -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX'
 ```
 
-To get multiple orders based on creation date:
+To get multiple orders based on creation date (only implemented parameters as of this writing):
 
 ```PowerShell
 Get-eBayOrder -CreationDateStart (Get-Date).AddMonths(-1) -CreationDateEnd (Get-Date).AddMonths(-1).AddDays(3)
