@@ -49,5 +49,5 @@ Function Get-eBayUserToken {
     $response = Invoke-WebRequest -Uri $baseUri -Body $body -Headers $headers -Method Post
 
     # Return the response
-    $response.Content | ConvertFrom-Json
+    [eBayAPI_OauthUserToken]::new($($response.Content | ConvertFrom-Json))
 }
