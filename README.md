@@ -25,11 +25,13 @@ Then retrieve the RUName from here: https://developer.ebay.com/my/auth/?env=prod
 
 ## How to authenticate
 
-With the above mentioned values, retrieve an authorization code (this will launch a window to have you authenticate to your eBay account) and use it to get a user token:
+With the above mentioned values, retrieve an user token (this will launch a window to have you authenticate to your eBay account):
 
 ```PowerShell
 Invoke-eBayAuthentication -ClientID $ClientID -ClientSecret $ClientSecret -RUName $RUName
 ```
+
+This will store the token in your registry and make it available to the other cmdlets.
 
 ## How to query
 
