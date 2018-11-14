@@ -13,4 +13,5 @@ Function Save-eBayToken {
     New-ItemProperty -Path $RegistryPath -Name 'Token' -Value (ConvertFrom-SecureString (ConvertTo-SecureString $Token.Token -AsPlainText -Force)) -Force | Out-Null
     New-ItemProperty -Path $RegistryPath -Name 'RefreshToken' -Value (ConvertFrom-SecureString (ConvertTo-SecureString $Token.RefreshToken -AsPlainText -Force)) -Force | Out-Null
     New-ItemProperty -Path $RegistryPath -Name 'RefreshTokenExpires' -Value $Token.RefreshTokenExpires -Force | Out-Null
+    Get-eBayLocalToken
 }
