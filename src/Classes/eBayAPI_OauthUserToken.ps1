@@ -6,14 +6,14 @@ Class eBayAPI_OauthUserToken {
 
     eBayAPI_OauthUserToken(
         [string]$access_token,
-        [int]$expires_in,
+        [datetime]$expires,
         [string]$refresh_token,
-        [int]$refresh_token_expires_in
+        [datetime]$refresh_token_expires
     ){
-        $this.Expires = (Get-Date).AddSeconds($expires_in)
         $this.Token = $access_token
+        $this.Expires = $expires
         $this.RefreshToken = $refresh_token
-        $this.RefreshTokenExpires = (Get-Date).AddSeconds($refresh_token_expires_in)
+        $this.RefreshTokenExpires = $refresh_token_expires
     }
 
     eBayAPI_OauthUserToken(
