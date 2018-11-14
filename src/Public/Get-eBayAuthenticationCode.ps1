@@ -1,4 +1,5 @@
 Add-Type -AssemblyName System.Web
+Add-Type -AssemblyName System.Windows.Forms
 Function Get-eBayAuthenticationCode {
     [cmdletbinding()]
     Param(
@@ -65,7 +66,7 @@ Function Get-eBayAuthenticationCode {
     # Return the output
     # eventually this will be something more secure than just outputting it... I hope.
     If($Response['isAuthSuccessful']){
-        $Response['code']
+        [eBayAPI_OAuthCode]::new($Response)
     }Else{
         Throw 'Error'
     }
