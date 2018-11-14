@@ -3,12 +3,12 @@
 Function Get-eBayShippingFulfillment {
     Param(
         [string]$OrderID,
-        [string]$ShippingFulfillment,
+        [string]$FulfillmentID,
         [string]$Token
     )
     $baseUri = 'https://api.ebay.com/sell/fulfillment/v1/order/{orderId}/shipping_fulfillment' -replace '{orderid}',$OrderID
-    If($ShippingFulfillment){
-        $baseUri = "$baseUri/$ShippingFulfillment"
+    If($FulfillmentID){
+        $baseUri = "$baseUri/$FulfillmentID"
     }
     $headers = @{
         Authorization = "Bearer $token"
