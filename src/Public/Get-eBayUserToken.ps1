@@ -8,7 +8,7 @@ Function Get-eBayUserToken {
     )
     $baseUri = 'https://api.ebay.com/identity/v1/oauth2/token/'
     # Doc on auth format: https://developer.ebay.com/api-docs/static/oauth-base64-credentials.html
-    $encodedAuthorization = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("$ClientID`:$ClientSecret")) #this is broken
+    $encodedAuthorization = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("$ClientID`:$ClientSecret"))
     Write-Verbose $encodedAuthorization
     $headers = @{
         'Content-Type' = 'application/x-www-form-urlencoded'
@@ -26,7 +26,6 @@ Function Get-eBayUserToken {
     ) -join ''
     Write-Verbose $body.ToString()
 
-    #Invoke-RestMethod -Uri $baseUri -Body $body -Headers $headers -Method Post
     $response = Invoke-WebRequest -Uri $baseUri -Body $body -Headers $headers -Method Post
     $response.Content | ConvertFrom-Json
 }
