@@ -6,7 +6,7 @@ This module is designed to work with the eBay API. It is under development (PRs 
 
 I plan to add classes to manage the retrieved data better, but in the current state it can authenticate and query basic order and shipping info.
 
-As of this writing, no builds have been done and the module has not yet been published.
+As of this writing, only an experimental build has been done, but it has not and will not be published in it's current state.
 
 ## How to set up
 You must first register for an eBay developer account here: https://developer.ebay.com/signin
