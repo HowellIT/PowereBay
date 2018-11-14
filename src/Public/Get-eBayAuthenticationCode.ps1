@@ -1,3 +1,4 @@
+Add-Type -AssemblyName System.Web
 Function Get-eBayAuthenticationCode {
     [cmdletbinding()]
     Param(
