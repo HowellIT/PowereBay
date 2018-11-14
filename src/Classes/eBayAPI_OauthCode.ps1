@@ -10,7 +10,22 @@ Class eBayAPI_OauthCode {
         $this.Code = $Code
     }
 
+    eBayAPI_OauthCode(
+        [hashtable]$In
+    ){
+        If($In.ContainsKey('expires_in') -and $In.ContainsKey('code')){
+            $this.Expires = (Get-Date).AddSeconds($In['expires_in'])
+            $this.Code = $In['Code']
+        }Else{
+            Throw 'Improperly formatted hash table'
+        }
+    }
+
     [bool]IsExpired(){
         return (Get-Date) -gt $this.Expires
+    }
+
+    [string]ToString(){
+        return $this.Code
     }
 }
