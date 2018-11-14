@@ -28,8 +28,7 @@ Then retrieve the RUName from here: https://developer.ebay.com/my/auth/?env=prod
 With the above mentioned values, retrieve an authorization code (this will launch a window to have you authenticate to your eBay account) and use it to get a user token:
 
 ```PowerShell
-$authCode = Get-eBayAuthenticationCode -ClientID $ClientID -RUName $RUName
-$userToken = Get-eBayUserToken -ClientID $ClientID -ClientSecret $ClientSecret -RUName $RUName -AuthorizationCode $authCode
+Invoke-eBayAuthentication -ClientID $ClientID -ClientSecret $ClientSecret -RUName $RUName
 ```
 
 ## How to query
@@ -37,23 +36,23 @@ $userToken = Get-eBayUserToken -ClientID $ClientID -ClientSecret $ClientSecret -
 To get a single order from eBay:
 
 ```PowerShell
-Get-eBayOrder -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX' -Token $userToken.access_token
+Get-eBayOrder -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX'
 ```
 
 To get multiple orders based on creation date:
 
 ```PowerShell
-Get-eBayOrder -CreationDateStart (Get-Date).AddMonths(-1) -CreationDateEnd (Get-Date).AddMonths(-1).AddDays(3) -Token $userToken.access_token
+Get-eBayOrder -CreationDateStart (Get-Date).AddMonths(-1) -CreationDateEnd (Get-Date).AddMonths(-1).AddDays(3)
 ```
 
 To get an order's shipping fulfillment info:
 
 ```PowerShell
-Get-eBayShippingFulfillment -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX' -Token $userToken.access_token
+Get-eBayShippingFulfillment -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX'
 ```
 
 To get information on a specific shipping fulfillment:
 
 ```PowerShell
-Get-eBayShippingFulFillment -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX' -FulfillmentID 'XXXXXXXXXXXXXXXXXXXXXX' -Token $userToken.access_token
+Get-eBayShippingFulFillment -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX' -FulfillmentID 'XXXXXXXXXXXXXXXXXXXXXX'
 ```
