@@ -1,6 +1,6 @@
 Add-Type -AssemblyName System.Web
 Add-Type -AssemblyName System.Windows.Forms
-Function Get-eBayAuthenticationCode {
+Function Get-eBayAuthorizationCode {
     [cmdletbinding()]
     Param(
         [Parameter(
