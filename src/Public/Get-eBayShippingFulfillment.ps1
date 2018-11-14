@@ -4,7 +4,7 @@ Function Get-eBayShippingFulfillment {
     Param(
         [string]$OrderID,
         [string]$FulfillmentID,
-        [string]$Token
+        [string]$Token = $eBayAuthConfig.Token
     )
     $baseUri = 'https://api.ebay.com/sell/fulfillment/v1/order/{orderId}/shipping_fulfillment' -replace '{orderid}',$OrderID
     If($FulfillmentID){

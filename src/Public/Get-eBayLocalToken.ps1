@@ -14,5 +14,6 @@ Function Get-eBayLocalToken {
     $obj = Get-ItemProperty $RegistryPath | Select $properties
     $obj.Token = ConvertTo-PlainText $obj.Token
     $obj.RefreshToken = ConvertTo-PlainText $obj.RefreshToken
-    [eBayAPI_OauthUserToken]::new($obj.Token,$obj.Expires,$obj.RefreshToken,$obj.RefreshTokenExpires)
+    $global:eBayAuthConfig = [eBayAPI_OauthUserToken]::new($obj.Token,$obj.Expires,$obj.RefreshToken,$obj.RefreshTokenExpires)
+    $eBayAuthConfig
 }
