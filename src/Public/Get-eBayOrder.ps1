@@ -31,8 +31,22 @@ Function Get-eBayOrder {
     If($PSCmdlet.ParameterSetName -eq 'SingleOrder'){
         Invoke-RestMethod -Method Get -Uri "$baseUri/$OrderID" -Headers $headers
     }ElseIf($PSCmdlet.ParameterSetName -eq 'MultipleOrders'){
-        $CreationDateStartUTC = Get-Date -Date $CreationDateStart.ToUniversalTime() -Format s
-        $filter = "filter=creationdate:%5B$CreationDateStartUTC.000Z..%5D"
+        # %5B and %5D are: [ ]
+        # .000Z is added because the API spec requires it but PS doesn't add it by default with '-Format s'
+        If($CreationDateStart){
+            $creationDateFilter = 'creationdate:%5B{CreationDateStart}..{CreationDateEnd}%5D'
+            $CreationDateStartUTC = Get-Date -Date $CreationDateStart.ToUniversalTime() -Format s
+            $creationDateFilter = $creationDateFilter -replace '{CreationDateStart}',"$CreationDateStartUTC.000Z"
+            If($CreationDateEnd){
+                $CreationDateEndUTC = Get-Date -Date $CreationDateEnd.ToUniversalTime() -Format s
+                $creationDateFilter = $creationDateFilter -replace '{CreationDateEnd}',"$CreationDateEndUTC.000Z"
+            }Else{
+                $creationDateFilter = $creationDateFilter -replace '{CreationDateEnd}',''
+            }
+        }
+        If($creationDateFilter){
+            $filter = "filter=$creationDateFilter"
+        }
         Write-Verbose "$baseUri`?$filter"
         Invoke-RestMethod -Uri "$baseUri`?$filter" -Headers $headers
     }
