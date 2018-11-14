@@ -1,6 +1,6 @@
 # PowereBay
 
-THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, data formatting, etc have not been implemented as of this writing!
+THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, data formatting, etc have not been implemented as of this writing! Even some of the implemented cmdlets don't have all parameters implemented.
 
 This module is designed to work with the eBay API. It is under development (PRs welcome!) and currently supports retrieving order and shipping information.
 
