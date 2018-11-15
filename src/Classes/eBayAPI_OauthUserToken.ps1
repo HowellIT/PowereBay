@@ -38,4 +38,18 @@ Class eBayAPI_OauthUserToken {
         return $this.Token
     }
 
+    [void]Update(
+        # Designed to accept the refresh token response
+        [PSCustomObject]$In
+    ){
+        If(
+            $In.PSObject.Properties.Name -contains 'access_token' -and
+            $In.PSObject.Properties.Name -contains 'expires_in'
+        ){
+            $this.Expires = (Get-Date).AddSeconds($In.expires_in)
+            $this.Token = $In.access_token
+        }Else{
+            Throw 'Improperly formatted object'
+        }
+    }
 }
