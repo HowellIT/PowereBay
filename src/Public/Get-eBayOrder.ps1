@@ -5,7 +5,7 @@ Function Get-eBayOrder {
         DefaultParameterSetName = 'MultipleOrders'
     )]
     Param(
-        [string]$Token = $eBayAuthConfig.Token, #should be replaced with some sort of global variable or something
+        [string]$Token = $eBayAuthConfig.UserToken.Token, #should be replaced with some sort of global variable or something
         [Parameter(
             ParameterSetName = 'SingleOrder'
         )]

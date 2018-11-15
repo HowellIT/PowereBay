@@ -10,10 +10,16 @@ Function Get-eBayLocalToken {
         $creds = New-Object pscredential('eBay',$ss)
         $creds.GetNetworkCredential().Password
     }
-    $properties = 'Token','Expires','RefreshToken','RefreshTokenExpires'
-    $obj = Get-ItemProperty $RegistryPath | Select $properties
-    $obj.Token = ConvertTo-PlainText $obj.Token
-    $obj.RefreshToken = ConvertTo-PlainText $obj.RefreshToken
-    $global:eBayAuthConfig = [eBayAPI_OauthUserToken]::new($obj.Token,$obj.Expires,$obj.RefreshToken,$obj.RefreshTokenExpires)
+    $properties = 'Expires','RefreshTokenExpires'
+    $propertiesToConvert = 'Token','RefreshToken','ClientID','ClientSecret','RUName'
+    [string[]]$combinedProperties = $properties+$propertiesToConvert
+    $obj = Get-ItemProperty $RegistryPath | Select $combinedProperties
+    ForEach($property in $propertiesToConvert){
+        $obj."$property" = ConvertTo-PlainText $obj."$property"
+    }
+    $global:eBayAuthConfig = [PSCustomObject]@{
+        UserToken = [eBayAPI_OauthUserToken]::new($obj.Token,$obj.Expires,$obj.RefreshToken,$obj.RefreshTokenExpires)
+        ClientCredentials = [eBayAPI_ClientCredentials]::new($obj.ClientID,$obj.ClientSecret,$obj.RUName)
+    }
     $eBayAuthConfig
 }
