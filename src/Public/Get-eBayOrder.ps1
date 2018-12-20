@@ -20,7 +20,9 @@ Function Get-eBayOrder {
         [datetime]$LastModifiedDateStart,
         [datetime]$LastModifiedDateEnd,
         [ValidateSet('NOT_STARTED','IN_PROGRESS','FULFILLED')]
-        [string]$OrderFulfillmentStatus
+        [string]$OrderFulfillmentStatus,
+        [ValidateRange(1,1000)]
+        [int]$Limit
         #endregion
     )
     $baseUri = 'https://api.ebay.com/sell/fulfillment/v1/order'
@@ -44,11 +46,16 @@ Function Get-eBayOrder {
                 $creationDateFilter = $creationDateFilter -replace '{CreationDateEnd}',''
             }
         }
+        $parameters = @()
         If($creationDateFilter){
-            $filter = "filter=$creationDateFilter"
+            $parameters += "filter=$creationDateFilter"
         }
+        If($limit){
+            $parameters += "limit=$Limit"
+        }
+        $strParameters = $parameters -join '&'
         Write-Verbose "$baseUri`?$filter"
-        $response = Invoke-RestMethod -Uri "$baseUri`?$filter" -Headers $headers
+        $response = Invoke-RestMethod -Uri "$baseUri`?$strParameters" -Headers $headers
         $response.Orders
     }
 }
