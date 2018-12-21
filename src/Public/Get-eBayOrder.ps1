@@ -45,10 +45,22 @@ Function Get-eBayOrder {
             }Else{
                 $creationDateFilter = $creationDateFilter -replace '{CreationDateEnd}',''
             }
+        }ElseIf($LastModifiedDateStart){
+            $lastModDateFilter = 'creationdate:%5B{LastModifiedDateStart}..{LastModifiedDateEnd}%5D'
+            $lastModDateStartUTC = Get-Date -Date $LastModifiedDateStart.ToUniversalTime() -Format s
+            $lastModDateFilter = $lastModDateFilter -replace '{LastModifiedDateStart}',"$lastModDateStartUTC.000Z"
+            If($LastModifiedDateEnd){
+                $lastModDateEndUTC = Get-Date -Date $LastModifiedDateEnd.ToUniversalTime() -Format s
+                $lastModDateFilter = $lastModDateFilter -replace '{LastModifiedDateEnd}',"$lastModDateEndUTC.000Z"
+            }Else{
+                $lastModDateFilter = $lastModDateFilter -replace '{LastModifiedDateEnd}',''
+            }
         }
         $parameters = @()
         If($creationDateFilter){
             $parameters += "filter=$creationDateFilter"
+        }ElseIf($lastModDateFilter){
+            $parameters += "filter=$lastModDateFilter"
         }
         If($limit){
             $parameters += "limit=$Limit"
