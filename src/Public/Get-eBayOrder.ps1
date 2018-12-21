@@ -35,7 +35,8 @@ Function Get-eBayOrder {
     }ElseIf($PSCmdlet.ParameterSetName -eq 'MultipleOrders'){
         # %5B and %5D are: [ ]
         # .000Z is added because the API spec requires it but PS doesn't add it by default with '-Format s'
-        If($CreationDateStart){
+        If($PSBoundParameters.ContainsKey('CreationDateStart')){
+        #If($CreationDateStart){
             $creationDateFilter = 'creationdate:%5B{CreationDateStart}..{CreationDateEnd}%5D'
             $CreationDateStartUTC = Get-Date -Date $CreationDateStart.ToUniversalTime() -Format s
             $creationDateFilter = $creationDateFilter -replace '{CreationDateStart}',"$CreationDateStartUTC.000Z"
@@ -45,8 +46,8 @@ Function Get-eBayOrder {
             }Else{
                 $creationDateFilter = $creationDateFilter -replace '{CreationDateEnd}',''
             }
-        }ElseIf($LastModifiedDateStart){
-            $lastModDateFilter = 'creationdate:%5B{LastModifiedDateStart}..{LastModifiedDateEnd}%5D'
+        }ElseIf($PSBoundParameters.ContainsKey('LastModifiedDateStart')){
+            $lastModDateFilter = 'lastmodifieddate:%5B{LastModifiedDateStart}..{LastModifiedDateEnd}%5D'
             $lastModDateStartUTC = Get-Date -Date $LastModifiedDateStart.ToUniversalTime() -Format s
             $lastModDateFilter = $lastModDateFilter -replace '{LastModifiedDateStart}',"$lastModDateStartUTC.000Z"
             If($LastModifiedDateEnd){
@@ -66,7 +67,7 @@ Function Get-eBayOrder {
             $parameters += "limit=$Limit"
         }
         $strParameters = $parameters -join '&'
-        Write-Verbose "$baseUri`?$filter"
+        Write-Verbose "$baseUri`?$strParameters"
         $response = Invoke-RestMethod -Uri "$baseUri`?$strParameters" -Headers $headers
         $response.Orders
     }
