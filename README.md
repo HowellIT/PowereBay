@@ -1,6 +1,6 @@
 # PowereBay
 
-THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, data formatting, etc have not been implemented as of this writing! Even some of the implemented cmdlets don't have all parameters implemented.
+THIS MODULE IS UNDER DEVELOPMENT. Use at your own risk. Parameter validation, data formatting, etc have not all been implemented as of this writing! Even some of the implemented cmdlets don't have all parameters implemented.
 
 This module is designed to work with the eBay API. It is under development (PRs welcome!) and currently supports retrieving order and shipping information.
 
@@ -29,7 +29,7 @@ With the above mentioned values, retrieve an user token (this will launch a wind
 Invoke-eBayAuthentication -ClientID $ClientID -ClientSecret $ClientSecret -RUName $RUName
 ```
 
-This will store the token in your registry and make it available to the other cmdlets.
+This will securely store the token in your registry and make it available to the other cmdlets.
 
 ## How to query
 
@@ -39,10 +39,10 @@ To get a single order from eBay:
 Get-eBayOrder -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX'
 ```
 
-To get multiple orders based on creation date (only implemented parameters as of this writing):
+To get multiple orders based on creation date (it would be the same syntax for LastModifiedDate) with a limit of 100:
 
 ```PowerShell
-Get-eBayOrder -CreationDateStart (Get-Date).AddMonths(-1) -CreationDateEnd (Get-Date).AddMonths(-1).AddDays(3)
+Get-eBayOrder -CreationDateStart (Get-Date).AddMonths(-1) -CreationDateEnd (Get-Date).AddMonths(-1).AddDays(3) -Limit 100
 ```
 
 To get an order's shipping fulfillment info:
