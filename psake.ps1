@@ -14,7 +14,7 @@ Task Build -depends Clean {
         New-Item $env:ModuleTempDir\$env:ModuleName -ItemType Directory | Out-Null
     }
     ForEach($file in $scriptFiles) {
-        Get-Content $file.FullName | Out-File $env:ModuleTempDir\$env:ModuleName\$env:ModuleName.psm1 -Append
+        Get-Content $file.FullName | Out-File $env:ModuleTempDir\$env:ModuleName\$env:ModuleName.psm1 -Append -Encoding ascii
     }
     Copy-Item $env:ProjectRoot\src\$env:ModuleName.psd1 $env:ModuleTempDir\$env:ModuleName\$env:ModuleName.psd1
     <#ForEach($format in $formatsToExport){
