@@ -16,5 +16,5 @@ Function Get-eBayReturns {
 
     Write-Verbose "$baseUri"
     $response = Invoke-RestMethod -Uri "$baseUri" -Headers $headers
-    $response
+    $response.members
 }
