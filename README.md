@@ -56,3 +56,9 @@ To get information on a specific shipping fulfillment:
 ```PowerShell
 Get-eBayShippingFulFillment -OrderID 'XXXXXXXXXXXX-XXXXXXXXXXXXX!XXXXXXXXXXXXXXX' -FulfillmentID 'XXXXXXXXXXXXXXXXXXXXXX'
 ```
+
+To get any recent eBay returns:
+
+```PowerShell
+Get-eBayReturns
+```
