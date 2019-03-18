@@ -204,7 +204,9 @@ Function Get-eBayReturns {
     Param(
         [string]$Token = $eBayAuthConfig.UserToken.Token,
         [ValidateRange(1,200)]
-        [int]$Limit
+        [int]$Limit = 25,
+        [datetime]$CreationDateStart,
+        [datetime]$CreationDateEnd
     )
     $baseUri = 'https://api.ebay.com/post-order/v2/return/search'
     $headers = @{
@@ -214,8 +216,25 @@ Function Get-eBayReturns {
         'Content-Type' = 'application/json'
     }
 
-    Write-Verbose "$baseUri"
-    $response = Invoke-RestMethod -Uri "$baseUri" -Headers $headers
+    $params = @()
+
+    If($Limit){
+        $params += "limit=$Limit"
+    }
+
+    If($PSBoundParameters.ContainsKey('CreationDateStart')){
+        $creationDateStartUTC = Get-Date -Date $CreationDateStart.ToUniversalTime() -Format s
+        $params += "creation_date_range_from=$CreationDateStartUTC.000Z"
+        If($CreationDateEnd){
+            $creationDateEndUTC = Get-Date -Date $CreationDateEnd.ToUniversalTime() -Format s
+            $params += "creation_date_range_to=$CreationDateEndUTC.000Z"
+        }
+    }
+
+    $resource = "?$($params -join '&')"
+
+    Write-Verbose "$baseUri$resource"
+    $response = Invoke-RestMethod -Uri "$baseUri$resource" -Headers $headers
     $response.members
 }
 #https://developer.ebay.com/api-docs/sell/fulfillment/resources/order/shipping_fulfillment/methods/getShippingFulfillments
