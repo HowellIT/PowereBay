@@ -1,6 +1,6 @@
 $srcPath = "$PSScriptRoot\src"
 $buildPath = "$PSScriptRoot\build"
-$moduleName = "PowereBay"
+$moduleName = "PowereBay_Core"
 $modulePath = "$buildPath\$moduleName"
 $author = 'Anthony Howell'
 $version = '0.0.3'
@@ -17,7 +17,7 @@ task Clean {
 task ModuleBuild Clean, {
     $classFiles = Get-ChildItem "$srcPath\classes" -Filter *.ps1 -File
     $pubFiles = Get-ChildItem "$srcPath\public" -Filter *.ps1 -File
-    $privFiles = Get-ChildItem "$srcPath\private" -Filter *.ps1 -File
+    $privFiles = Get-ChildItem "$srcPath\private" -Filter *.ps1 -File | Where-Object BaseName -ne 'Get-eBayAuthorizationCode'
     If(-not(Test-Path $modulePath)){
         New-Item $modulePath -ItemType Directory
     }
