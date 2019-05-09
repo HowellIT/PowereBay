@@ -19,10 +19,14 @@ Function Set-eBayAuthConfig {
         [Parameter(
             Mandatory = $true
         )]
-        [datetime]$RefreshTokenExpirationDate
+        [datetime]$RefreshTokenExpirationDate,
+        [Parameter()]
+        [string]$UserToken,
+        [Parameter()]
+        [datetime]$UserTokenExpirationDate
     )
     $global:eBayAuthConfig = [PSCustomObject]@{
-        UserToken = [eBayAPI_OauthUserToken]::new('foobar',(Get-Date),$RefreshToken,$RefreshTokenExpirationDate)
+        UserToken = [eBayAPI_OauthUserToken]::new($UserToken,$UserTokenExpirationDate,$RefreshToken,$RefreshTokenExpirationDate)
         ClientCredentials = [eBayAPI_ClientCredentials]::new($ClientID,$ClientSecret,$RUName)
     }
 }
