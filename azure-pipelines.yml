@@ -1,0 +1,20 @@
+# https://aka.ms/yaml
+# https://medium.com/@ychetankumarsarma/build-versioning-in-azure-devops-pipelines-94b5a79f80a0
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest' # change to windows-latest if you need windows  
+
+resources:
+  repositories:
+    - repository: templates
+      name: PowerShell/PipelineTemplates
+      type: git
+
+stages:
+- template: PowerShellModules/Dev.yml@templates  # Change to Prod.yml when ready to deploy to prod repo
+  parameters:
+    Major: 0
+    Minor: 0
