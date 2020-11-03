@@ -36,8 +36,8 @@ Function Set-PeBayConfig {
 
     if ($PSBoundParameters.Keys -contains 'NewStoreName') {
         if ($PSCmdlet.ShouldProcess($key)) {
-            $tmp = $config['Stores'][$org]
-            $config['Stores'].Remove($org)
+            $tmp = $config['Stores'][$Store]
+            $config['Stores'].Remove($Store)
             $script:config['Stores'][$NewStoreName] = $tmp
             Set-PeBayRunningConfig -Store $NewStoreName
         }
