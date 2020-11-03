@@ -1,0 +1,15 @@
+{
+    "Stores": {
+        "Example": {
+            "AccessToken": "",
+            "TokenExpires": "",
+            "RefreshToken": ""
+        }
+    },
+    "Store": "Example",
+    "Module": {
+        "ClientID": "",
+        "ClientSecret": "",
+        "RuName": ""
+    }
+}
